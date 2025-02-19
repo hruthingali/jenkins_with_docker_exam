@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Run tests with unittest discover, targeting test.py
-                    sh 'docker run --rm $DOCKER_IMAGE python -m unittest discover -s . -p "test.py"'
+                    sh 'docker run --rm $DOCKER_IMAGE python -m unittest /app/test.py'
                 }
             }
         }
