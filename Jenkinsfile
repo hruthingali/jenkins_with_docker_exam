@@ -12,7 +12,27 @@ pipeline {
                 git url: 'https://github.com/jkbarathkumar/jenkins_with_docker', branch: 'main'
             }
         }
- 
+        
+        stage('Pull Latest Docker Image') {
+            steps {
+                script {
+                    sh 'docker pull $DOCKER_IMAGE'
+                }
+            }
+        }
+
+        stage('Debug Docker Container') {
+            steps {
+                script {
+                    // Check if test.py exists in the container
+                    sh 'docker run --rm $DOCKER_IMAGE ls -l /app'
+                    
+                    // Print working directory inside container
+                    sh 'docker run --rm $DOCKER_IMAGE pwd'
+                }
+            }
+        }
+
         stage('Run Tests on Docker Image') {
             steps {
                 script {
@@ -21,8 +41,6 @@ pipeline {
                 }
             }
         }
- 
-        // Optionally add more stages for deployment, notification, etc.
     }
  
     post {
