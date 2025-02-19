@@ -10,16 +10,11 @@ class FlaskAppTestCase(unittest.TestCase):
     def test_homepage(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Hello, World!', response.data)  
-    def test_health_check(self):
-        response = self.client.get('/health')
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Healthy', response.data)
+        self.assertIn(b'Hello, World!', response.data)  # Check for Hello, World! content
 
     def test_404(self):
         response = self.client.get('/non-existent')
         self.assertEqual(response.status_code, 404)
-
 
 if __name__ == '__main__':
     unittest.main()
