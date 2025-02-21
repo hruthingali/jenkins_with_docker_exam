@@ -6,12 +6,12 @@ pipeline {
     }
  
     stages {
-        stage('Checkout Code') {
+        /*stage('Checkout Code') {
             steps {
                 // Checkout the latest code from your GitHub repository
                 git url: 'https://github.com/jkbarathkumar/jenkins_with_docker', branch: 'main'
             }
-        }
+        }*/
         
         stage('Pull Latest Docker Image') {
             steps {
