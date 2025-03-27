@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Checkout the latest code from your GitHub repository
-                git url: 'https://github.com/hruthin/jenkins_with_docker', branch: 'main'
+                git url: 'https://github.com/hruthingali/jenkins_with_docker_exam.git', branch: 'main'
             }
         }
 
