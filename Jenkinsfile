@@ -6,12 +6,20 @@ pipeline {
     }
  
     stages {
-        /*stage('Checkout Code') {
+        stage('Checkout Code') {
             steps {
                 // Checkout the latest code from your GitHub repository
                 git url: 'https://github.com/jkbarathkumar/jenkins_with_docker', branch: 'main'
             }
-        }*/
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t $DOCKER_IMAGE .'
+                }
+            }
+        }
         
         stage('Pull Latest Docker Image') {
             steps {
@@ -37,17 +45,20 @@ pipeline {
             steps {
                 script {
                     // Run tests with unittest discover, targeting test.py
-                    sh 'docker run --rm -w /app $DOCKER_IMAGE python -m unittest discover -s /app -p "test.py"'
+                    sh 'docker run --rm -w /app $DOCKER_IMAGE python -m unittest discover -s /app -p "test.py" > test_results.log'
                 }
+            }
+        }
+
+        stage('Archive Test Results') {
+            steps {
+                archiveArtifacts artifacts: 'test_results.log', fingerprint: true
             }
         }
     }
  
     post {
-        always {
-            // Clean up: Logout from Docker registry after the build (optional for public images)
-            sh 'docker logout'
-        }
+        
  
         success {
             echo 'Tests passed successfully!'
