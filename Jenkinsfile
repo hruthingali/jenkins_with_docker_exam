@@ -2,14 +2,14 @@ pipeline {
     agent any
  
     environment {
-        DOCKER_IMAGE = 'barathkumar29/my-flask-app:latest'  // Docker image on Docker Hub
+        DOCKER_IMAGE = 'hruthingali/my-flask-app25:latest'  // Docker image on Docker Hub
     }
  
     stages {
         stage('Checkout Code') {
             steps {
                 // Checkout the latest code from your GitHub repository
-                git url: 'https://github.com/jkbarathkumar/jenkins_with_docker', branch: 'main'
+                git url: 'https://github.com/hruthin/jenkins_with_docker', branch: 'main'
             }
         }
 
